@@ -2,48 +2,48 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/AppBackground"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Activities.MainActivity">
 
-    <ImageButton
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
-    <androidx.cardview.widget.CardView
+    <soup.neumorphism.NeumorphCardView
         android:id="@+id/name"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:cardElevation="5dp"
-        app:cardCornerRadius="10dp"
-        app:contentPadding="12dp"
-        android:layout_marginTop="-10dp"
-        android:backgroundTint="@color/background"
-        android:background="@color/cardview_shadow_end_color"
-        android:layout_alignParentTop="true">
+        android:layout_height="75dp"
+        app:neumorph_insetStart="8dp"
+        app:neumorph_insetEnd="10dp"
+        android:layout_marginVertical="3dp"
+        style="@style/Background"
+        app:neumorph_shapeType="flat">
 
-        <TextView
-            android:id="@+id/SanTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:fontFamily="serif"
-            android:layout_marginTop="5dp"
-            android:textColor="@color/black"
-            android:text="SanNotes"
-            android:textSize="30sp" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <ImageButton
-            android:id="@+id/settings"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:layout_marginTop="5dp"
-            android:src="@drawable/settings"
-            android:layout_gravity="end|center"
-            android:backgroundTint="@android:color/transparent"/>
+            <soup.neumorphism.NeumorphTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Background"
+                android:layout_centerInParent="true"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                android:text="SanNotes" />
 
-    </androidx.cardview.widget.CardView>
+                    <ImageButton
+                        android:id="@+id/settings"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginHorizontal="10dp"
+                        android:padding="10dp"
+                        android:src="@drawable/settings"
+                        style="@style/SettingsIcon"/>
+
+        </RelativeLayout>
+
+    </soup.neumorphism.NeumorphCardView>
 
 
     <androidx.recyclerview.widget.RecyclerView
@@ -83,21 +83,17 @@
 
     </RelativeLayout>
 
-    <androidx.cardview.widget.CardView
+    <soup.neumorphism.NeumorphCardView
         android:id="@+id/note_add_btn"
-        android:layout_width="100dp"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        app:cardCornerRadius="20dp"
-        app:cardElevation="5dp"
-        android:elevation="5dp"
+        style="@style/Background"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true">
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
             <ImageView
@@ -107,15 +103,16 @@
                 android:src="@drawable/add" />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="2dp"
                 android:layout_marginTop="-5dp"
+                android:gravity="center"
                 android:text="New Note"
                 android:textSize="11sp" />
 
         </LinearLayout>
 
-    </androidx.cardview.widget.CardView>
+    </soup.neumorphism.NeumorphCardView>
 
 </RelativeLayout>

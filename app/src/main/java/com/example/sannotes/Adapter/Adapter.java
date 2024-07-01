@@ -1,14 +1,19 @@
 package com.example.sannotes.Adapter;
 
+import static com.google.android.material.resources.MaterialResources.getDrawable;
+
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.EditText;
@@ -24,48 +29,69 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.sannotes.DBHelper;
+import com.example.sannotes.ItemModule;
 import com.example.sannotes.R;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+
+import soup.neumorphism.NeumorphCardView;
 
 public class Adapter extends RecyclerView.Adapter<Adapter.view_holder>{
     Context context;
     Activity activity;
     Animation animation;
-    boolean isView;
-
-    List<String> title,note,date;
+    int idView;
+    List<ItemModule> items;
     DBHelper dbHelper;
-    public Adapter(Activity activity,Context context, List<String> title,List<String> note,List<String> date, boolean isView) {
+    public Adapter(Activity activity, Context context, List<ItemModule> items, int idView) {
         this.activity = activity;
         this.context = context;
-        this.title = title;
-        this.note = note;
-        this.date = date;
-        this.isView = isView;
+        this.items = items;
+        this.idView = idView;
     }
 
 
     @NonNull
     @Override
     public view_holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        if (isView){
-            return new view_holder(LayoutInflater.from(context).inflate(R.layout.grid_layout_notes,parent,false), parent);
-        } else {
-            return new view_holder(LayoutInflater.from(context).inflate(R.layout.list_layout_notes, parent, false), parent);
-        }
+        return new view_holder(LayoutInflater.from(context).inflate(idView, parent, false));
     }
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     @Override
     public void onBindViewHolder(@NonNull view_holder holder, int position) {
 
-        //Put the List Data's in Recycler View
-        holder.title.setText(String.valueOf(title.get(position)));
-        holder.notes.setText(String.valueOf(note.get(position)));
-        holder.dateview.setText(String.valueOf(date.get(position)));
+        if (idView == R.layout.grid_layout_notes) {
+            //Put the Grid Data's in Recycler View
+            holder.title.setText(String.valueOf(items.get(position).getTitle()));
+            holder.notes.setText(String.valueOf(items.get(position).getNotes()));
+            holder.dateview.setText(String.valueOf(items.get(position).getDate()));
+        } else {
+            //Put the List Data's in Recycler View
+            holder.title.setText(String.valueOf(items.get(position).getTitle()));
+            holder.dateview.setText(String.valueOf(items.get(position).getDate()));
+        }
+        Dialog showNote = new Dialog(context, android.R.style.Theme_DeviceDefault_Light_NoActionBar);
+        showNote.setContentView(R.layout.read_dialog);
+        showNote.getWindow().setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
+        showNote.getWindow().setBackgroundDrawable(activity.getDrawable(R.drawable.dialog_bg));
+        showNote.setCanceledOnTouchOutside(true);
 
-        if (!isView)
-         isListView(holder, position);
+        holder.itemView.setOnClickListener(v -> {
+            showNote.show();
+
+            TextView showTitle = showNote.findViewById(R.id.read_title);
+            TextView showNotes = showNote.findViewById(R.id.read_notes);
+            TextView showDate = showNote.findViewById(R.id.read_date);
+
+            showTitle.setText(String.valueOf(items.get(position).getTitle()));
+            showNotes.setText(String.valueOf(items.get(position).getNotes()));
+            showDate.setText(String.valueOf(items.get(position).getDate()));
+        });
+
+        holder.cardView.setBackgroundColor(holder.itemView.getResources().getColor(getRandomColorCode()));
 
         //More button & Listener
         holder.more.setOnClickListener(v->{
@@ -76,7 +102,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.view_holder>{
             popupMenu.show();
 
             //Full screen Dialog
-            Dialog dialog = new Dialog(context, android.R.style.Theme_DeviceDefault_Light_NoActionBar);
+            Dialog dialog = new Dialog(context, android.R.style.Theme_DeviceDefault_DayNight);
             dialog.setContentView(R.layout.new_note);
 
             EditText get_title = dialog.findViewById(R.id.notes_title);
@@ -86,19 +112,21 @@ public class Adapter extends RecyclerView.Adapter<Adapter.view_holder>{
 
             //Popup menu click Listener
             popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                @SuppressLint("NotifyDataSetChanged")
                 @Override
                 public boolean onMenuItemClick(MenuItem item) {
                     if(item.getItemId() == R.id.mor_edit){
                         dialog.show();
-                        get_title.setText(title.get(holder.getAdapterPosition()));
-                        get_note.setText(note.get(holder.getAdapterPosition()));
+                        get_title.setText(items.get(holder.getAdapterPosition()).getTitle());
+                        get_note.setText(items.get(holder.getAdapterPosition()).getNotes());
 
                         //Update button & Listener
                         update_btn.setOnClickListener(v->{
                             dbHelper = new DBHelper(context);
-                            dbHelper.updateData(title.get(holder.getAdapterPosition()),get_title.getText().toString(),get_note.getText().toString(),date.get(holder.getAdapterPosition()));
+                            dbHelper.updateData(items.get(holder.getAdapterPosition()).getTitle(),get_title.getText().toString(),get_note.getText().toString(),items.get(holder.getAdapterPosition()).getDate());
 
                             //recreate the MainActivity using recreate() method
+                            notifyDataSetChanged();
                             activity.recreate();
                             dialog.dismiss();
                         });
@@ -121,14 +149,15 @@ public class Adapter extends RecyclerView.Adapter<Adapter.view_holder>{
                                 .setPositiveButton("Yes", (dialogInterface, i) -> {
 
                                     dbHelper = new DBHelper(context);
-                                    dbHelper.deleteNote(String.valueOf(title.get(holder.getAdapterPosition())));
+                                    dbHelper.deleteNote(String.valueOf(items.get(holder.getAdapterPosition()).getTitle()));
 
                                     //recreate the MainActivity using recreate() method
+                                    notifyDataSetChanged();
                                     activity.recreate();
                                 })
                                 .setNegativeButton("No", (dialogInterface, i) -> {
                                 })
-                                .setCancelable(false)
+                                .setCancelable(true)
                                 .create().show();
 
                     }
@@ -138,51 +167,32 @@ public class Adapter extends RecyclerView.Adapter<Adapter.view_holder>{
         });
     }
 
-    private void isListView(view_holder holder, int position) {
-        //For read a notes with Listener
-        holder.arrow.setOnClickListener(v->{
-            if(holder.notes.getVisibility() == View.GONE) {
-                holder.notes.setVisibility(View.VISIBLE);
-                holder.arrow.setImageResource(R.drawable.arrow_up);
-                holder.notes.setText(String.valueOf(note.get(holder.getAdapterPosition())));
-            }else{
-                holder.notes.setVisibility(View.GONE);
-                holder.arrow.setImageResource(R.drawable.arrow_down);
-            }
-        });
+    private int getRandomColorCode() {
+        List<Integer> colorCode = new ArrayList<>();
+        colorCode.add(R.color.note_color_1);
+        colorCode.add(R.color.note_color_2);
+        colorCode.add(R.color.note_color_3);
+        colorCode.add(R.color.note_color_4);
+        colorCode.add(R.color.note_color_5);
 
-        holder.cardView.setOnClickListener(v->{
-            if(holder.notes.getVisibility() == View.GONE) {
-                holder.notes.setVisibility(View.VISIBLE);
-                holder.arrow.setImageResource(R.drawable.arrow_up);
-                holder.notes.setText(String.valueOf(note.get(holder.getAdapterPosition())));
-            }else{
-                holder.notes.setVisibility(View.GONE);
-                holder.arrow.setImageResource(R.drawable.arrow_down);
-            }
-        });
+        return colorCode.get(new Random().nextInt(colorCode.size()));
     }
 
     @Override
     public int getItemCount() {
-        return title.size();
+        return items.size();
     }
 
-
-
-    public class view_holder extends RecyclerView.ViewHolder {
+    public static class view_holder extends RecyclerView.ViewHolder {
 
         TextView title,notes,dateview;
-        ImageButton more,arrow;
-        CardView cardView;
-        LinearLayout linearLayout;
-        RelativeLayout gridLayout;
-        view_holder(@NonNull View itemView, ViewGroup parent) {
+        ImageButton more;
+        NeumorphCardView cardView;
+        view_holder(@NonNull View itemView) {
             super(itemView);
             title = itemView.findViewById(R.id.set_title);
             notes = itemView.findViewById(R.id.set_notes);
             more = itemView.findViewById(R.id.more_btn);
-            arrow = itemView.findViewById(R.id.arrow_btn);
             dateview = itemView.findViewById(R.id.set_date);
             cardView = itemView.findViewById(R.id.card_view);
 //            if (itemView == LayoutInflater.from(context).inflate(R.layout.grid_layout_notes, parent, false)) {

@@ -3,25 +3,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    style="@style/AppBackground"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/card_view1"
+<soup.neumorphism.NeumorphCardView
+    android:id="@+id/card_view1"
+    style="@style/NewBackground"
+    android:layout_width="match_parent"
+    android:layout_height="75dp">
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="68dp"
-        app:cardCornerRadius="10dp"
-        android:layout_marginTop="-10dp"
-        android:layout_marginBottom="5dp"
-        android:backgroundTint="@color/background">
+        android:layout_height="match_parent">
 
         <ImageButton
             android:id="@+id/back_done"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_gravity="center|start"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="5dp"
-            android:background="@color/background"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginHorizontal="16dp"
+            style="@style/BackIcon"
             android:src="@drawable/arrow_back" />
 
         <EditText
@@ -29,44 +30,57 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@android:color/transparent"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="50dp"
-            android:layout_marginEnd="50dp"
+            android:layout_centerInParent="true"
+            android:layout_toEndOf="@id/back_done"
+            android:layout_toStartOf="@id/note_done"
             android:gravity="center"
             android:hint="TITLE"
             android:textColorHint="@color/black"
             android:inputType="textLongMessage"
+            style="@style/EditTextBackground"
             android:textSize="24sp"
             android:maxLines="10"
             android:textStyle="bold" />
 
         <ImageButton
             android:id="@+id/note_done"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_gravity="center|end"
-            android:layout_marginEnd="10dp"
-            android:layout_marginTop="5dp"
-            android:background="@color/background"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
+            style="@style/DoneIcon"
             android:src="@drawable/arrow_forward" />
 
-</androidx.cardview.widget.CardView>
 
-    <EditText
-        android:id="@+id/notes"
-        android:layout_width="380dp"
+    </RelativeLayout>
+
+
+    </soup.neumorphism.NeumorphCardView>
+
+    <soup.neumorphism.NeumorphCardView
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/card_view1"
-        android:layout_centerHorizontal="true"
-        android:background="@android:color/transparent"
-        android:gravity="top"
-        android:scrollbars="vertical"
-        android:imeOptions="actionNext"
-        android:focusedByDefault="true"
-        android:hint="Write a notes here..."
-        android:inputType="textMultiLine"
-        android:maxWidth="380dp"
-        android:padding="10dp" />
+        style="@style/NewBackground">
+
+        <EditText
+            android:id="@+id/notes"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:background="@android:color/transparent"
+            style="@style/EditTextBackground"
+            android:gravity="top"
+            android:imeOptions="actionNext"
+            android:focusedByDefault="true"
+            android:hint="Write a notes here..."
+            android:inputType="textMultiLine"
+            android:maxWidth="380dp"
+            android:padding="15dp" />
+
+
+    </soup.neumorphism.NeumorphCardView>
 
 
 </RelativeLayout>

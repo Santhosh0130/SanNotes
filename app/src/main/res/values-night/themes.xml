@@ -4,4 +4,46 @@
         <!-- Customize your dark theme here. -->
         <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
     </style>
+
+    <style name="AppBackground">
+        <item name="background">@color/dark_background</item>
+    </style>
+
+    <style name="EditTextBackground">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="NewBackground">
+        <item name="neumorph_shadowElevation">2dp</item>
+        <item name="neumorph_shadowColorDark">#000000</item>
+        <item name="neumorph_shadowColorLight">#838383</item>
+        <item name="neumorph_shapeType">basin</item>
+    </style>
+
+    <style name="Background">
+        <item name="neumorph_shadowElevation">2dp</item>
+        <item name="neumorph_shadowColorDark">#000000</item>
+        <item name="neumorph_shadowColorLight">#838383</item>
+    </style>
+
+    <style name="SettingsIcon">
+        <item name="android:src">@drawable/dark_arrow_back</item>
+        <item name="backgroundTint">@android:color/transparent</item>
+    </style>
+
+    <style name="DoneIcon">
+        <item name="android:src">@drawable/dark_settings</item>
+    </style>
+
+    <style name="BackIcon">
+        <item name="android:src">@drawable/dark_arrow_forward</item>
+        <item name="backgroundTint">@android:color/transparent</item>
+    </style>
+
+
+    <style name="SettingsDialog">
+        <item name="cornerRadius">20dp</item>
+    </style>
+
 </resources>

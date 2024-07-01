@@ -2,21 +2,20 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:padding="5dp"
     android:id="@+id/root_relative_layout"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <androidx.cardview.widget.CardView
+    <soup.neumorphism.NeumorphCardView
         android:id="@+id/card_view"
-        android:layout_width="160dp"
-        android:layout_height="170dp"
-        app:cardCornerRadius="10dp"
-        app:contentPadding="10dp"
-        app:cardElevation="3dp">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/Background"
+        app:neumorph_shapeType="flat">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="150dp"
+            android:padding="10dp">
 
             <ImageButton
                 android:id="@+id/more_btn"
@@ -33,6 +32,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Title"
+                android:textColor="@color/black"
                 android:textStyle="bold"
                 android:textSize="18sp"
                 android:padding="4dp"
@@ -63,11 +63,12 @@
                 android:textSize="10sp"
                 android:padding="2dp"
                 android:textColor="@color/black"
+                android:layout_margin="10dp"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentEnd="true"/>
 
         </RelativeLayout>
 
-    </androidx.cardview.widget.CardView>
+    </soup.neumorphism.NeumorphCardView>
 
 </RelativeLayout>

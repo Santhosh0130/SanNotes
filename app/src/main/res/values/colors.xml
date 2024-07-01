@@ -3,7 +3,8 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="btn">#C65600</color>
-    <color name="background">#0870ff</color>
+    <color name="light_background">#EFEBEB</color>
+    <color name="dark_background">#2E2E2E</color>
     <color name="App_background">#0870ff</color>
     
     <color name="note_color_1">#cdb4db</color>
@@ -11,4 +12,17 @@
     <color name="note_color_3">#ffafcc</color>
     <color name="note_color_4">#bde0fe</color>
     <color name="note_color_5">#a2d2ff</color>
+
+    <color name="dark_card_background">#000</color>
+    <color name="dark_shadow_background">#111111</color>
+    <color name="dark_text">#fff</color>
+
+    <color name="light_card_background">#fff</color>
+    <color name="light_shadow_background">#222121</color>
+    <color name="light_text">#000</color>
+
+
+    <color name="light_text1">#2c2c2c</color>
+
+
 </resources>

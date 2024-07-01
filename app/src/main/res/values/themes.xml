@@ -7,6 +7,43 @@
 
     <style name="Theme.SanNotes" parent="Base.Theme.SanNotes" />
 
+    <style name="AppBackground">
+        <item name="background">@color/light_background</item>
+    </style>
+
+    <style name="Background">
+        <item name="neumorph_shadowElevation">2dp</item>
+        <item name="neumorph_shadowColorDark">#d9d9d9</item>
+        <item name="neumorph_shadowColorLight">#ffffff</item>
+    </style>
+
+    <style name="EditTextBackground">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="NewBackground">
+        <item name="neumorph_shadowElevation">2dp</item>
+        <item name="neumorph_shadowColorDark">#d9d9d9</item>
+        <item name="neumorph_shadowColorLight">#ffffff</item>
+        <item name="neumorph_shapeType">basin</item>
+    </style>
+
+    <style name="SettingsIcon">
+        <item name="android:src">@drawable/arrow_back</item>
+        <item name="backgroundTint">@android:color/transparent</item>
+    </style>
+
+    <style name="DoneIcon">
+        <item name="android:src">@drawable/settings</item>
+        <item name="backgroundTint">@android:color/transparent</item>
+    </style>
+
+    <style name="BackIcon">
+        <item name="android:src">@drawable/arrow_forward</item>
+        <item name="backgroundTint">@android:color/transparent</item>
+    </style>
+
     <style name="SettingsDialog">
         <item name="cornerRadius">20dp</item>
     </style>

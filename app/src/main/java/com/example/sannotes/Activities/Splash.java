@@ -23,7 +23,7 @@ public class Splash extends AppCompatActivity {
             public void run() {
                 startActivity(new Intent(Splash.this, MainActivity.class));
             }
-        },4000);
+        },1000);
         Animation animation = AnimationUtils.loadAnimation(Splash.this,R.anim.welcome);
         TextView welcome = findViewById(R.id.welcome_text);
         welcome.startAnimation(animation);

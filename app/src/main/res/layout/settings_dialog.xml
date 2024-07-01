@@ -1,87 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
+<soup.neumorphism.NeumorphCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    app:cardCornerRadius="20dp"
-    app:contentPadding="20dp">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:padding="20dp">
 
-        <LinearLayout
-            android:id="@+id/btn_views"
+        <TextView
+            android:id="@+id/text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:paddingHorizontal="10dp"
+            android:text="Settings"
+            android:textStyle="bold"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/grid_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="20dp"
-                android:text="grid view"
-                android:drawablePadding="10dp"
-                android:drawableStart="@drawable/grid_view"
-                android:gravity="start|center" />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/list_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:visibility="gone"
-                android:padding="20dp"
-                android:text="list view"
-                android:drawablePadding="10dp"
-                android:drawableStart="@drawable/list_view"
-                android:gravity="start|center" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/btn_modes"
-            android:layout_below="@id/btn_views"
+        <soup.neumorphism.NeumorphButton
+            android:id="@+id/views"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            style="@style/Background"
+            app:neumorph_insetStart="0dp"
+            app:neumorph_insetEnd="5dp"
+            android:layout_below="@id/text"
+            android:drawableStart="@drawable/grid_view"
+            android:text="Grid View"
+            android:drawablePadding="10dp"
+            android:layout_marginHorizontal="10dp"
+            android:gravity="start|center"
+            android:padding="20dp"
+            android:textSize="20sp"/>
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/theme_light_mode"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="20dp"
-                android:text="light mode"
-                android:drawablePadding="10dp"
-                android:drawableStart="@drawable/light_mode"
-                android:gravity="start|center" />
+        <soup.neumorphism.NeumorphButton
+            android:id="@+id/themes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Background"
+            app:neumorph_insetStart="0dp"
+            app:neumorph_insetEnd="5dp"
+            android:layout_below="@id/views"
+            android:drawableStart="@drawable/light_mode"
+            android:text="Light Mode"
+            android:drawablePadding="10dp"
+            android:layout_marginHorizontal="10dp"
+            android:gravity="start|center"
+            android:padding="20dp"
+            android:textSize="16sp"/>
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/theme_dark_mode"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:visibility="gone"
-                android:padding="20dp"
-                android:text="dark mode"
-                android:drawablePadding="10dp"
-                android:drawableStart="@drawable/dark_mode"
-                android:gravity="start|center" />
-
-        </LinearLayout>
-
-        <androidx.appcompat.widget.AppCompatButton
+        <soup.neumorphism.NeumorphButton
             android:id="@+id/delete_all"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="20dp"
-            android:layout_below="@id/btn_modes"
+            style="@style/Background"
+            app:neumorph_insetStart="0dp"
+            app:neumorph_insetEnd="5dp"
+            android:layout_below="@id/themes"
+            android:drawableStart="@drawable/delete"
             android:text="Delete All"
             android:drawablePadding="10dp"
-            android:drawableStart="@drawable/delete"
-            android:gravity="start|center" />
+            android:layout_marginHorizontal="10dp"
+            android:gravity="start|center"
+            android:padding="20dp"
+            android:textSize="16sp"/>
 
     </RelativeLayout>
 
-
-</androidx.cardview.widget.CardView>
+</soup.neumorphism.NeumorphCardView>
