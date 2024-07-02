@@ -59,7 +59,6 @@ public class Adapter extends RecyclerView.Adapter<Adapter.view_holder>{
         return new view_holder(LayoutInflater.from(context).inflate(idView, parent, false));
     }
 
-    @SuppressLint("UseCompatLoadingForDrawables")
     @Override
     public void onBindViewHolder(@NonNull view_holder holder, int position) {
 
@@ -195,15 +194,6 @@ public class Adapter extends RecyclerView.Adapter<Adapter.view_holder>{
             more = itemView.findViewById(R.id.more_btn);
             dateview = itemView.findViewById(R.id.set_date);
             cardView = itemView.findViewById(R.id.card_view);
-//            if (itemView == LayoutInflater.from(context).inflate(R.layout.grid_layout_notes, parent, false)) {
-//                gridLayout = itemView.findViewById(R.id.root_relative_layout);
-//                animation = AnimationUtils.loadAnimation(context,R.anim.translate_anim);
-//                gridLayout.setAnimation(animation);
-//            } else {
-//                linearLayout = itemView.findViewById(R.id.root_linear_layout);
-//                animation = AnimationUtils.loadAnimation(context,R.anim.translate_anim);
-//                linearLayout.setAnimation(animation);
-//            }
         }
     }
 }

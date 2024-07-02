@@ -22,25 +22,16 @@
     </style>
 
     <style name="Background">
+        <item name="drawableTint">@color/white</item>
         <item name="neumorph_shadowElevation">2dp</item>
         <item name="neumorph_shadowColorDark">#000000</item>
         <item name="neumorph_shadowColorLight">#838383</item>
     </style>
 
-    <style name="SettingsIcon">
-        <item name="android:src">@drawable/dark_arrow_back</item>
+    <style name="IconBackground">
+        <item name="tint">@color/white</item>
         <item name="backgroundTint">@android:color/transparent</item>
     </style>
-
-    <style name="DoneIcon">
-        <item name="android:src">@drawable/dark_settings</item>
-    </style>
-
-    <style name="BackIcon">
-        <item name="android:src">@drawable/dark_arrow_forward</item>
-        <item name="backgroundTint">@android:color/transparent</item>
-    </style>
-
 
     <style name="SettingsDialog">
         <item name="cornerRadius">20dp</item>

@@ -2,6 +2,7 @@ package com.example.sannotes.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.cardview.widget.CardView;
@@ -44,7 +45,6 @@ import soup.neumorphism.NeumorphCardView;
 
 public class MainActivity extends AppCompatActivity {
 
-    boolean isChecked = false;
     List<ItemModule> items = new ArrayList<>();
     Adapter adapter;
     DBHelper dbHelper;
@@ -53,7 +53,6 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     ImageButton settings;
 
-    @SuppressLint({"NotifyDataSetChanged", "UseCompatLoadingForDrawables"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,8 +66,20 @@ public class MainActivity extends AppCompatActivity {
         Dialog settingsDialog = new Dialog(this, android.R.style.Theme_DeviceDefault_DayNight);
         settingsDialog.setContentView(R.layout.settings_dialog);
         settingsDialog.getWindow().setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
-        settingsDialog.getWindow().setBackgroundDrawable(getDrawable(R.drawable.dialog_bg));
         settingsDialog.setCanceledOnTouchOutside(true);
+
+        NeumorphButton themeTitle = settingsDialog.findViewById(R.id.themes);
+        NeumorphButton viewTitle = settingsDialog.findViewById(R.id.views);
+
+        if (getSharedPreferences("theme", MODE_PRIVATE).getBoolean("dark", false)){
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+            Toast.makeText(this, "Dark Applied", Toast.LENGTH_SHORT).show();
+            drawableButtonChange(themeTitle, "Light Mode", R.drawable.light_mode);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+            Toast.makeText(this, "Light Applied", Toast.LENGTH_SHORT).show();
+            drawableButtonChange(themeTitle, "Dark Mode", R.drawable.dark_mode);
+        }
 
         settings.setOnClickListener(v ->{
             settingsDialog.show();
@@ -89,32 +100,18 @@ public class MainActivity extends AppCompatActivity {
             });
 
             SharedPreferences.Editor viewsEditor = getSharedPreferences("view", MODE_PRIVATE).edit();
-            NeumorphButton viewTitle = settingsDialog.findViewById(R.id.views);
             viewTitle.setOnClickListener(V -> {
                 boolean val = !getSharedPreferences("view", MODE_PRIVATE).getBoolean("grid_view", false);
                 viewsEditor.putBoolean("grid_view", val).apply();
-                if (val){
-                    drawableButtonChange(viewTitle, "List View", R.drawable.list_view);
-                } else {
-                    drawableButtonChange(viewTitle, "Grid View", R.drawable.grid_view);
-                }
                 Toast.makeText(this, "Clicked", Toast.LENGTH_SHORT).show();
                 settingsDialog.dismiss();
                 recreate();
             });
 
             SharedPreferences.Editor themeEditor = getSharedPreferences("theme", MODE_PRIVATE).edit();
-            NeumorphButton themeTitle = settingsDialog.findViewById(R.id.themes);
             themeTitle.setOnClickListener(V -> {
                 boolean val = !getSharedPreferences("theme",MODE_PRIVATE).getBoolean("dark",false);
                 themeEditor.putBoolean("dark", val).apply();
-                if (val) {
-                    Toast.makeText(this, "Light", Toast.LENGTH_SHORT).show();
-                    drawableButtonChange(viewTitle, "Light Mode", R.drawable.light_mode);
-                } else {
-                    Toast.makeText(this, "Dark", Toast.LENGTH_SHORT).show();
-                    drawableButtonChange(viewTitle, "Dark Mode", R.drawable.dark_mode);
-                }
                 Toast.makeText(this, "Clicked", Toast.LENGTH_SHORT).show();
                 settingsDialog.dismiss();
                 recreate();
@@ -170,7 +167,7 @@ public class MainActivity extends AppCompatActivity {
 
         //Add the values in Individual Array
         setArraylist();
-        set_adapter();
+        set_adapter(viewTitle);
 
     }
 
@@ -192,28 +189,16 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void set_adapter() {
-        SharedPreferences preferences = getSharedPreferences("view", MODE_PRIVATE);
-        if (preferences.getBoolean("grid_view", false)){
+    public void set_adapter(NeumorphButton view) {
+        if (getSharedPreferences("view", MODE_PRIVATE).getBoolean("grid_view", false)){
             adapter = new Adapter(this, this,items, R.layout.grid_layout_notes);
             recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
-            Toast.makeText(this, "Grid", Toast.LENGTH_SHORT).show();
+            drawableButtonChange(view, "List View", R.drawable.list_view);
         } else {
             adapter = new Adapter(this, this,items, R.layout.list_layout_notes);
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
-            Toast.makeText(this, "List", Toast.LENGTH_SHORT).show();
+            drawableButtonChange(view, "Grid View", R.drawable.grid_view);
         }
         recyclerView.setAdapter(adapter);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if (getSharedPreferences("theme", MODE_PRIVATE).getBoolean("dark", false)){
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-        } else {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        }
-
     }
 }

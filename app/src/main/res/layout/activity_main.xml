@@ -38,8 +38,8 @@
                         android:layout_alignParentEnd="true"
                         android:layout_marginHorizontal="10dp"
                         android:padding="10dp"
-                        android:src="@drawable/settings"
-                        style="@style/SettingsIcon"/>
+                        style="@style/IconBackground"
+                        android:src="@drawable/settings"/>
 
         </RelativeLayout>
 
